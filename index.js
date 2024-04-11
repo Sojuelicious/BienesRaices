@@ -1,8 +1,16 @@
 import express from 'express'
-import router from './routes/usuarioRoutes'
+import usuarioRouter from './routes/usuarioRoutes.js'
 
 // Creando la app
 const app = express()
+
+// Habilitar PUG
+app.set('view engine', 'pug')
+app.set('views', './views')
+
+// Routing, tambien puede conciderarse midleware
+// Se puede utilizar este USE para utilizar cookies
+app.use('/auth', usuarioRouter)
 
 // Creando el puerto
 const port = 3000
