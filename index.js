@@ -1,18 +1,11 @@
-import express from "express";
+import express from 'express'
+import router from './routes/usuarioRoutes'
 
-//Creando la app
-const app = express();
+// Creando la app
+const app = express()
 
-//Creando el routing
-app.get("/", (req, res) => {
-  res.send("Hola mundo");
-});
-app.get("/nosotros", (req, res) => {
-  res.send("Hacerca de nosotros");
-});
-
-//Creando el puerto
-const port = 3000;
+// Creando el puerto
+const port = 3000
 app.listen(port, () => {
-  console.log(`Escuchando el puerto ${port}`);
-});
+  console.log(`Escuchando el puerto ${port}`)
+})
