@@ -1,13 +1,13 @@
 import express from 'express'
+import {
+  formularioLogin,
+  formularioRegistro
+} from '../controllers/usuarioController.js'
 
 const router = express.Router()
 //  Creando el routing
-// render llama a la vista login
-router.get('/login', (req, res) => {
-  res.render('auth/login')
-})
-router.post('/', (req, res) => {
-  res.json({ msg: 'Respuesta al tipo post' })
-})
+
+router.get('/login', formularioLogin)
+router.get('/registro', formularioRegistro)
 
 export default router
