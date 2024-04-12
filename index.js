@@ -8,6 +8,9 @@ const app = express()
 app.set('view engine', 'pug')
 app.set('views', './views')
 
+// Carpeta publica
+app.use(express.static('public'))
+
 // Routing, tambien puede conciderarse midleware
 // Se puede utilizar este USE para utilizar cookies
 app.use('/auth', usuarioRouter)
