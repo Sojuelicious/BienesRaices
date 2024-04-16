@@ -4,7 +4,8 @@ import express from 'express'
 import {
   formularioLogin,
   formularioRegistro,
-  formularioOlvidePassword
+  formularioOlvidePassword,
+  registrar
 } from '../controllers/usuarioController.js'
 
 const router = express.Router()
@@ -13,6 +14,10 @@ const router = express.Router()
 //Aqui se pueden crear las rutas que uno quiera
 //Como primer parametro es el url, como segundo parametro el controlador
 router.get('/login', formularioLogin)
+
 router.get('/registro', formularioRegistro)
+//Utilizamos post para registrar a usuarios que vengan desde el formulario
+router.post('/registro', registrar)
+
 router.get('/olvide-password', formularioOlvidePassword)
 export default router
