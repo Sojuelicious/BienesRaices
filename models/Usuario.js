@@ -22,3 +22,5 @@ const Usuario = db.define('usuarios', {
     type: DataTypes.BOOLEAN
   }
 })
+
+export default Usuario

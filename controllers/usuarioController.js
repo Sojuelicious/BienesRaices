@@ -1,3 +1,4 @@
+import Usuario from '../models/Usuario.js'
 // render llama a la vista login
 // El redner toma primero la ruta, luego la informacion que va a pasar
 const formularioLogin = (req, res) => {
@@ -14,8 +15,10 @@ const formularioRegistro = (req, res) => {
 }
 
 //Para registrar a usuarios que vengan desde el formulario
-const registrar = (req, res) => {
-  console.log(req.body)
+const registrar = async (req, res) => {
+  //Creamos usuario a partir de los datos que vienen del formulario
+  const usuario = await Usuario.create(req.body)
+  res.json(usuario)
 }
 
 const formularioOlvidePassword = (req, res) => {
