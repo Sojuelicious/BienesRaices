@@ -61,6 +61,25 @@ const registrar = async (req, res) => {
     })
   }
 
+  const { nombre, email, password } = req.body
+
+  //Veificar que el usuario no este duplicado
+  const existeUsuario = await Usuario.findOne({
+    where: { email }
+  })
+  if (existeUsuario) {
+    return res.render('auth/registro', {
+      pagina: 'Crear Cuenta',
+      errores: [{ msg: 'El usuario ya esta registrado' }],
+      usuario: {
+        nombre: req.body.nombre,
+        email: req.body.email
+      }
+    })
+  }
+
+  console.log(existeUsuario)
+
   //Creamos usuario a partir de los datos que vienen del formulario
   const usuario = await Usuario.create(req.body)
   res.json(usuario)
