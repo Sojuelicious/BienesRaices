@@ -3,7 +3,8 @@ import express from 'express'
 //Esta es la ruta de los controladores
 import {
   formularioLogin,
-  formularioRegistro
+  formularioRegistro,
+  formularioOlvidePassword
 } from '../controllers/usuarioController.js'
 
 const router = express.Router()
@@ -13,5 +14,5 @@ const router = express.Router()
 //Como primer parametro es el url, como segundo parametro el controlador
 router.get('/login', formularioLogin)
 router.get('/registro', formularioRegistro)
-
+router.get('/olvide-password', formularioOlvidePassword)
 export default router
