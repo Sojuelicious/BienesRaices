@@ -2,6 +2,7 @@ import { validationResult, check } from 'express-validator'
 
 import Usuario from '../models/Usuario.js'
 import { generarId } from '../helpers/tokens.js'
+import { emailRegistro } from '../helpers/email.js'
 // render llama a la vista login
 // El redner toma primero la ruta, luego la informacion que va a pasar
 const formularioLogin = (req, res) => {
@@ -82,11 +83,18 @@ const registrar = async (req, res) => {
   console.log(existeUsuario)
 
   //Creamos usuario a partir de los datos que vienen del formulario
-  await Usuario.create({
+  const usuario = await Usuario.create({
     nombre,
     email,
     password,
     token: generarId()
+  })
+
+  //enviar email de confirmacion
+  emailRegistro({
+    nombre: usuario.nombre,
+    email: usuario.email,
+    token: usuario.token
   })
 
   //Mostrar mensaje de confirmacion
