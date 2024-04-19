@@ -29,7 +29,7 @@ app.use(express.static('public'))
 app.use('/auth', usuarioRouter)
 
 // Creando el puerto
-const port = 3000
+const port = process.env.PORT || 3000
 app.listen(port, () => {
   console.log(`Escuchando el puerto ${port}`)
 })

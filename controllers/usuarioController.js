@@ -105,6 +105,16 @@ const registrar = async (req, res) => {
   })
 }
 
+//Funcion que comprueba una cuenta con el token
+const confirmar = (req, res) => {
+  const { token } = req.params
+  console.log(token)
+
+  //!Verificar si el token es valido
+
+  //!Confirmar la cuenta
+}
+
 const formularioOlvidePassword = (req, res) => {
   res.render('auth/olvide-password', {
     pagina: 'Recuperar Cuenta'
@@ -115,5 +125,6 @@ export {
   formularioLogin,
   formularioRegistro,
   formularioOlvidePassword,
-  registrar
+  registrar,
+  confirmar
 }
