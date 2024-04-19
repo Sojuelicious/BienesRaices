@@ -29,6 +29,7 @@ const Usuario = db.define(
     hooks: {
       beforeCreate: async function (usuario) {
         const salt = await bcrypt.genSalt(10)
+        //Instancia del usuario que viene del parametro de la funcion
         usuario.password = await bcrypt.hash(usuario.password, salt)
       }
     }

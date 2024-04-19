@@ -1,6 +1,7 @@
 import { validationResult, check } from 'express-validator'
 
 import Usuario from '../models/Usuario.js'
+import { generarId } from '../helpers/tokens.js'
 // render llama a la vista login
 // El redner toma primero la ruta, luego la informacion que va a pasar
 const formularioLogin = (req, res) => {
@@ -85,7 +86,7 @@ const registrar = async (req, res) => {
     nombre,
     email,
     password,
-    token: 123
+    token: generarId()
   })
 }
 
