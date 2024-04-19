@@ -88,6 +88,13 @@ const registrar = async (req, res) => {
     password,
     token: generarId()
   })
+
+  //Mostrar mensaje de confirmacion
+  res.render('templates/mensaje', {
+    pagina: 'Cuenta creada correctamente',
+    mensaje:
+      'Hemos enviado un mensaje de confirmacion, persiona para ir al enlace'
+  })
 }
 
 const formularioOlvidePassword = (req, res) => {
