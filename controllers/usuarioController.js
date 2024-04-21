@@ -2,7 +2,7 @@ import { validationResult, check } from 'express-validator'
 
 import Usuario from '../models/Usuario.js'
 import { generarId } from '../helpers/tokens.js'
-import { emailRegistro } from '../helpers/email.js'
+import { emailRegistro, emailOlvidePassword } from '../helpers/email.js'
 // render llama a la vista login
 // El redner toma primero la ruta, luego la informacion que va a pasar
 const formularioLogin = (req, res) => {
@@ -140,6 +140,7 @@ const formularioOlvidePassword = (req, res) => {
 }
 
 const resetPassword = async (req, res) => {
+  //Validaciones para el email en el formulario
   await check('email').notEmpty().withMessage('Eso no parece un email').run(req)
 
   let resultado = validationResult(req)
@@ -162,7 +163,34 @@ const resetPassword = async (req, res) => {
       errores: [{ msg: 'El email no esta asociada a ninguna cuenta' }]
     })
   }
+
+  //!Generar un token y enviar el email
+
+  //asignar un token al usuario
+  usuario.token = generarId()
+
+  //Guardar el token previo en la base de datos
+  await usuario.save()
+
+  //Enviar un email
+  emailOlvidePassword({
+    email: usuario.email,
+    nombre: usuario.nombre,
+    token: usuario.token
+  })
+
+  //Renderizar un mensaje
+  res.render('templates/mensaje', {
+    pagina: 'Reestablece tu password',
+    mensaje: 'Hemos enviado un email con las instrucciones'
+  })
 }
+
+const comprobarToken = (req, res, next) => {
+  next()
+}
+
+const nuevoPassword = (req, res) => {}
 
 export {
   formularioLogin,
@@ -170,5 +198,7 @@ export {
   formularioOlvidePassword,
   registrar,
   confirmar,
-  resetPassword
+  resetPassword,
+  comprobarToken,
+  nuevoPassword
 }
