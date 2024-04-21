@@ -151,6 +151,17 @@ const resetPassword = async (req, res) => {
       errores: resultado.array()
     })
   }
+
+  //Verificar que el usuario este registrado
+  const { email } = req.body
+  const usuario = await Usuario.findOne({ where: { email } })
+
+  if (!usuario) {
+    return res.render('auth/olvide-password', {
+      pagina: 'Recupera el acceso a tu cuenta',
+      errores: [{ msg: 'El email no esta asociada a ninguna cuenta' }]
+    })
+  }
 }
 
 export {
