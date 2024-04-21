@@ -1,8 +1,10 @@
 import { validationResult, check } from 'express-validator'
+import bcrypt from 'bcrypt'
 
 import Usuario from '../models/Usuario.js'
 import { generarId } from '../helpers/tokens.js'
 import { emailRegistro, emailOlvidePassword } from '../helpers/email.js'
+import { where } from 'sequelize'
 // render llama a la vista login
 // El redner toma primero la ruta, luego la informacion que va a pasar
 const formularioLogin = (req, res) => {
@@ -186,11 +188,68 @@ const resetPassword = async (req, res) => {
   })
 }
 
-const comprobarToken = (req, res, next) => {
-  next()
+const comprobarToken = async (req, res) => {
+  //req.params porque estamos leyendo el token de la url. Este token/variable lo definimos en usuarioROutes
+  const { token } = req.params
+
+  const usuario = await Usuario.findOne({ where: { token } })
+
+  if (!usuario) {
+    return res.render('auth/confirmar-cuenta', {
+      pagina: 'Reestablece tu password',
+      mensaje: 'Hubo un error al validar tu informacion, intenta de nuevo',
+      error: true
+    })
+  }
+
+  //Mostrar formulario para modificar el password
+  res.render('auth/reset-passwrod', {
+    pagina: 'Reestablece tu password'
+  })
 }
 
-const nuevoPassword = (req, res) => {}
+const nuevoPassword = async (req, res) => {
+  //Validar password
+  await check('password')
+    .isLength({ min: 2 })
+    .withMessage('El password debe tener mas de 8 caracteres')
+    .run(req)
+  //Validar que el password se repita y sea el correcto
+  await check('repetir_password')
+    .equals(req.body.password)
+    .withMessage('EL password no coincide')
+    .run(req)
+
+  //MOstramos el resultado de las validaciones anteriores
+  let resultado = validationResult(req)
+
+  //Verificar que la lista de errores este vacia
+  if (!resultado.isEmpty()) {
+    return res.render('auth/reset-passwrod', {
+      pagina: 'Reestablece tu password',
+      errores: resultado.array()
+    })
+  }
+
+  const { token } = req.params
+  const { password } = req.body
+
+  //identificar quien hace el cambio
+  const usuario = await Usuario.findOne({ where: { token } })
+
+  //Hashear password
+  const salt = await bcrypt.genSalt(10)
+  //Instancia del usuario que viene del parametro de la funcion
+  usuario.password = await bcrypt.hash(password, salt)
+  usuario.token = null
+
+  await usuario.save()
+
+  res.render('auth/confirmar-cuenta', {
+    pagina: 'Password Reestablecido',
+    mensaje: 'EL password se guardo correctamente'
+  })
+}
 
 export {
   formularioLogin,

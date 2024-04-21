@@ -31,5 +31,5 @@ router.post('/olvide-password', resetPassword)
 
 //Almacena el nuevo password
 router.get('/olvide-password/:token', comprobarToken)
-router.get('/olvide-password/:token', nuevoPassword)
+router.post('/olvide-password/:token', nuevoPassword)
 export default router
