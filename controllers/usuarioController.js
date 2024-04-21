@@ -139,10 +139,25 @@ const formularioOlvidePassword = (req, res) => {
   })
 }
 
+const resetPassword = async (req, res) => {
+  await check('email').notEmpty().withMessage('Eso no parece un email').run(req)
+
+  let resultado = validationResult(req)
+
+  //!Verificar que el resutlado este vacio
+  if (!resultado.isEmpty()) {
+    return res.render('auth/olvide-password', {
+      pagina: 'Recupera El acceso a tu cuenta',
+      errores: resultado.array()
+    })
+  }
+}
+
 export {
   formularioLogin,
   formularioRegistro,
   formularioOlvidePassword,
   registrar,
-  confirmar
+  confirmar,
+  resetPassword
 }
