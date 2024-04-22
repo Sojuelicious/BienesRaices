@@ -25,8 +25,31 @@ const autenticar = async (req, res) => {
   //Verificar que la lista de errores este vacia
   if (!resultado.isEmpty()) {
     return res.render('auth/login', {
-      pagina: 'Iniciar Sesion',
+      pagina: 'Inicia Sesion',
       errores: [{ msg: 'Nombre de usuario o contraseña incorrectos' }]
+    })
+  }
+
+  //Verificar que el usuario exista
+
+  const { email, password } = req.body
+
+  const usuario = await Usuario.findOne({
+    where: { email }
+  })
+
+  if (!usuario) {
+    return res.render('auth/login', {
+      pagina: 'Inicia Sesion',
+      errores: [{ msg: 'El Usuario no existe' }]
+    })
+  }
+
+  //Verificar si el usuario ya confirmo su cuenta
+  if (!usuario.confirmado) {
+    return res.render('auth/login', {
+      pagina: 'Inicia Sesion',
+      errores: [{ msg: 'Error al iniciar sesion intentalo mas tarde' }]
     })
   }
 }
