@@ -13,6 +13,24 @@ const formularioLogin = (req, res) => {
   })
 }
 
+const autenticar = async (req, res) => {
+  //Validar que sea un email
+  await check('email').isEmail().run(req)
+  //Validar que el passwrod sea de mas de 6 caracteres
+  await check('password').notEmpty().run(req)
+
+  //MOstramos el resultado de las validaciones anteriores
+  let resultado = validationResult(req)
+
+  //Verificar que la lista de errores este vacia
+  if (!resultado.isEmpty()) {
+    return res.render('auth/login', {
+      pagina: 'Iniciar Sesion',
+      errores: [{ msg: 'Nombre de usuario o contraseña incorrectos' }]
+    })
+  }
+}
+
 //Como primer parametro se pone la ruta de donde esta el archivo de la vista
 const formularioRegistro = (req, res) => {
   res.render('auth/registro', {
@@ -259,5 +277,6 @@ export {
   confirmar,
   resetPassword,
   comprobarToken,
-  nuevoPassword
+  nuevoPassword,
+  autenticar
 }

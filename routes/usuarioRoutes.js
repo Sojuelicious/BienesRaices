@@ -9,7 +9,8 @@ import {
   confirmar,
   resetPassword,
   comprobarToken,
-  nuevoPassword
+  nuevoPassword,
+  autenticar
 } from '../controllers/usuarioController.js'
 
 const router = express.Router()
@@ -18,6 +19,7 @@ const router = express.Router()
 //Aqui se pueden crear las rutas que uno quiera
 //Como primer parametro es el url, como segundo parametro el controlador
 router.get('/login', formularioLogin)
+router.post('/login', autenticar)
 
 router.get('/registro', formularioRegistro)
 
