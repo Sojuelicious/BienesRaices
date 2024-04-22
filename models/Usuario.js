@@ -36,4 +36,11 @@ const Usuario = db.define(
   }
 )
 
+//Meotod personalizado
+Usuario.prototype.verificarPassword = function (password) {
+  //El primer password es lo que se le pasaa desde el formulario
+  //el this.password es lo que se compara en la base de datos
+  return bcrypt.compareSync(password, this.password)
+}
+
 export default Usuario

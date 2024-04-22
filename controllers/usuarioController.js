@@ -52,6 +52,16 @@ const autenticar = async (req, res) => {
       errores: [{ msg: 'Error al iniciar sesion intentalo mas tarde' }]
     })
   }
+
+  //Revisar el password
+  if (!usuario.verificarPassword(password)) {
+    return res.render('auth/login', {
+      pagina: 'Inicia Sesion',
+      errores: [{ msg: 'Password incorrecto' }]
+    })
+  }
+
+  //Autenticar al usuario
 }
 
 //Como primer parametro se pone la ruta de donde esta el archivo de la vista
