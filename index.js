@@ -2,6 +2,7 @@ import express from 'express'
 import helmet from 'helmet'
 import cookieParser from 'cookie-parser'
 import usuarioRouter from './routes/usuarioRoutes.js'
+import propiedadesRouter from './routes/propiedadesRoutes.js'
 import db from './config/db.js'
 
 // Creando la app
@@ -42,6 +43,7 @@ app.use(express.static('public'))
 // Routing, tambien puede conciderarse midleware
 // Se puede utilizar este USE para utilizar cookies
 app.use('/auth', usuarioRouter)
+app.use('/', propiedadesRouter)
 
 // Manejar errores
 app.use((err, req, res, next) => {
