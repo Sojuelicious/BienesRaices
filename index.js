@@ -1,5 +1,6 @@
 import express from 'express'
 import helmet from 'helmet'
+import cookieParser from 'cookie-parser'
 import usuarioRouter from './routes/usuarioRoutes.js'
 import db from './config/db.js'
 
@@ -18,6 +19,9 @@ app.use(
     policy: 'same-site'
   })
 )
+
+//Habilitar cokie parser
+app.use(cookieParser())
 
 //!Conexion a la base de datos
 try {

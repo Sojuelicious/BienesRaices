@@ -64,6 +64,14 @@ const autenticar = async (req, res) => {
   //Autenticar al usuario
   const token = generarJWT({ id: usuario.id, nombre: usuario.nombre })
   console.log(token)
+
+  //Almaenar en un cookie+
+  return res
+    .cookie('_token', token, {
+      httpOnly: true
+      //secure: true
+    })
+    .redirect('/mis-propiedades')
 }
 
 //Como primer parametro se pone la ruta de donde esta el archivo de la vista
