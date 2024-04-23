@@ -1,1 +1,1 @@
-console.log('Muestra algo')
+alert('Soy el mapa')
