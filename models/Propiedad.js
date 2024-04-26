@@ -1,6 +1,5 @@
 import { DataTypes, INTEGER } from 'sequelize'
 import db from '../config/db.js'
-import { data } from 'autoprefixer'
 
 const Propiedad = db.define('propiedades', {
   id: {
