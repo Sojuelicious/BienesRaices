@@ -34,6 +34,17 @@
       .run(function (error, resultado) {
         console.log(resultado)
         marker.bindPopup(resultado.address.LongLabel)
+
+        //LLenar los campos
+        document.querySelector('.calle').textContent =
+          resultado?.address.LongLabel ?? ''
+
+        document.querySelector('#calle').value =
+          resultado?.address.LongLabel ?? ''
+
+        document.querySelector('#latitud').value = resultado?.latlng.lat ?? ''
+
+        document.querySelector('#longitud').value = resultado?.latlng.lng ?? ''
       })
   })
 })()
