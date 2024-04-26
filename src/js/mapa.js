@@ -4,6 +4,9 @@
   const mapa = L.map('mapa').setView([lat, lng], 16)
   let marker
 
+  //Utilizar Geocoder y Provider
+  const geocodeService = L.esri.Geocoding.geocodeService()
+
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution:
       '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -20,8 +23,17 @@
     marker = e.target
 
     const posicion = marker.getLatLng()
-    console.log(posicion)
+    //console.log(posicion)
 
     mapa.panTo(new L.latLng(posicion.lat, posicion.lng))
+
+    //Obtener informacion de las calles
+    geocodeService
+      .reverse()
+      .latlng(posicion, 16)
+      .run(function (error, resultado) {
+        console.log(resultado)
+        marker.bindPopup(resultado.address.LongLabel)
+      })
   })
 })()
