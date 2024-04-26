@@ -14,4 +14,14 @@
     draggable: true,
     autoPan: true
   }).addTo(mapa)
+
+  //Detectar el movimiento del pin
+  marker.on('moveend', function (e) {
+    marker = e.target
+
+    const posicion = marker.getLatLng()
+    console.log(posicion)
+
+    mapa.panTo(new L.latLng(posicion.lat, posicion.lng))
+  })
 })()
