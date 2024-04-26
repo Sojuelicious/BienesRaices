@@ -26,7 +26,8 @@
     "mysql2": "^3.9.4",
     "nodemailer": "^6.9.13",
     "pug": "^3.0.2",
-    "sequelize": "^6.37.3"
+    "sequelize": "^6.37.3",
+    "uuid": "^9.0.1"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.19",
