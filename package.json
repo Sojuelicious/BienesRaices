@@ -9,7 +9,7 @@
     "server": "nodemon index.js",
     "css": "postcss public/css/tailwind.css -o public/css/app.css --watch",
     "js": "webpack --watch",
-    "dev": "concurrently \"npm run css\" \"npm run js\""
+    "dev": "concurrently \"npm run css\" \"npm run js\" "
   },
   "keywords": [],
   "author": "",
@@ -22,6 +22,7 @@
     "express-validator": "^7.0.1",
     "helmet": "^7.1.0",
     "jsonwebtoken": "^9.0.2",
+    "leaflet": "^1.9.4",
     "mysql2": "^3.9.4",
     "nodemailer": "^6.9.13",
     "pug": "^3.0.2",
