@@ -1,4 +1,4 @@
-import { DataTypes, INTEGER } from 'sequelize'
+import { DataTypes } from 'sequelize'
 import db from '../config/db.js'
 
 const Propiedad = db.define('propiedades', {
@@ -17,15 +17,15 @@ const Propiedad = db.define('propiedades', {
     allowNull: false
   },
   habitaciones: {
-    DataTypes: INTEGER,
+    type: DataTypes.INTEGER,
     allowNull: false
   },
   estacionamiento: {
-    DataTypes: INTEGER,
+    type: DataTypes.INTEGER,
     allowNull: false
   },
   wc: {
-    DataTypes: INTEGER,
+    type: DataTypes.INTEGER,
     allowNull: false
   },
   calle: {
@@ -33,6 +33,10 @@ const Propiedad = db.define('propiedades', {
     allowNull: false
   },
   latitud: {
+    type: DataTypes.STRING,
+    allowNull: false
+  },
+  longitud: {
     type: DataTypes.STRING,
     allowNull: false
   },

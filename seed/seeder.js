@@ -1,7 +1,11 @@
 import precios from './Precio.js'
 import categorias from './Categorias.js' //Datos
-import Categoria from '../models/Categoria.js' //Modelo de la tabla de la bd
-import Precio from '../models/Precio.js'
+
+// import Categoria from '../models/Categoria.js' //Modelo de la tabla de la bd
+// import Precio from '../models/Precio.js'
+
+import { Categoria, Precio } from '../models/index.js'
+
 import db from '../config/db.js' //Instancia de la base de datos
 
 const importarDatos = async () => {
@@ -29,13 +33,10 @@ const importarDatos = async () => {
   }
 }
 
-const elimilarDatos = async () => {
+const eliminarDatos = async () => {
   try {
-    await Promise.all([
-      Categoria.destroy({ where: {}, truncate: true }),
-      Precio.destroy({ where: {}, truncate: true })
-    ])
-    console.log('Datos eliminados correctamente')
+    await db.sync({ force: true })
+    console.log('Datos Eliminados Correctamente')
     process.exit()
   } catch (error) {
     console.log(error)
@@ -48,5 +49,5 @@ if (process.argv[2] === '-i') {
 }
 
 if (process.argv[2] === '-e') {
-  elimilarDatos()
+  eliminarDatos()
 }
