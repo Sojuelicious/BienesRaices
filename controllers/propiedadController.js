@@ -20,7 +20,8 @@ const crear = async (req, res) => {
     pagina: 'Crear Propiedad',
     barra: true,
     categorias: categorias,
-    precios: precios
+    precios: precios,
+    datos: {}
   })
 }
 
