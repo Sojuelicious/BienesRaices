@@ -40,7 +40,8 @@ const guardar = async (req, res) => {
       barra: true,
       categorias: categorias,
       precios: precios,
-      errores: resultado.array()
+      errores: resultado.array(),
+      datos: req.body
     })
   }
 }
