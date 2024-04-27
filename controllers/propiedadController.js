@@ -57,6 +57,8 @@ const guardar = async (req, res) => {
     precio: precioId,
     categoria: categoriaId
   } = req.body
+
+  const { id: usuarioId } = req.usuario
   try {
     const propiedadGuardada = await Propiedad.create({
       titulo,
@@ -68,8 +70,14 @@ const guardar = async (req, res) => {
       latitud,
       longitud,
       precioId,
-      categoriaId
+      categoriaId,
+      usuarioId,
+      imagen: ''
     })
+
+    const { id } = propiedadGuardada
+
+    res.redirect(`/propiedades/agregar-imagen/${id}`)
   } catch (error) {
     console.log(error)
   }
