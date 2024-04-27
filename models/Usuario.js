@@ -32,6 +32,13 @@ const Usuario = db.define(
         //Instancia del usuario que viene del parametro de la funcion
         usuario.password = await bcrypt.hash(usuario.password, salt)
       }
+    },
+    scopes: {
+      eliminarPassword: {
+        attributes: {
+          exclude: ['password', 'token', 'confirmado', 'createdAt', 'updatedAt']
+        }
+      }
     }
   }
 )
