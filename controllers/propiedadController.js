@@ -1,5 +1,6 @@
 import Categoria from '../models/Categoria.js'
 import Precio from '../models/Precio.js'
+import { validationResult } from 'express-validator'
 
 const admin = (req, res) => {
   res.render('propiedades/admin', {
@@ -23,4 +24,25 @@ const crear = async (req, res) => {
     precios: precios
   })
 }
-export { admin, crear }
+
+const guardar = async (req, res) => {
+  //Resultado validacion
+  let resultado = validationResult(req)
+
+  if (!resultado.isEmpty()) {
+    const [categorias, precios] = await Promise.all([
+      Categoria.findAll(),
+      Precio.findAll()
+    ])
+
+    return res.render('propiedades/crear', {
+      pagina: 'Crer Propiedad',
+      barra: true,
+      categorias: categorias,
+      precios: precios,
+      errores: resultado.array()
+    })
+  }
+}
+
+export { admin, crear, guardar }
