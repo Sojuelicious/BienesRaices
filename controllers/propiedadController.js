@@ -92,6 +92,10 @@ const agregarImagen = async (req, res) => {
 
   //Validar que la propiedad no esta publicada
 
+  if (propiedad.publicado) {
+    return res.redirect('/mis-propiedades')
+  }
+
   //Validar que la propiedad pertenece a quien visita la pagina
 
   res.render('propiedades/agregar-imagen', {
