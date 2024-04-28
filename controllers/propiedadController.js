@@ -3,8 +3,7 @@ import { validationResult } from 'express-validator'
 
 const admin = (req, res) => {
   res.render('propiedades/admin', {
-    pagina: 'Mis propiedades',
-    barra: true
+    pagina: 'Mis propiedades'
   })
 }
 
@@ -18,7 +17,6 @@ const crear = async (req, res) => {
 
   res.render('propiedades/crear', {
     pagina: 'Crear Propiedad',
-    barra: true,
     categorias: categorias,
     precios: precios,
     datos: {}
@@ -37,7 +35,6 @@ const guardar = async (req, res) => {
 
     return res.render('propiedades/crear', {
       pagina: 'Crer Propiedad',
-      barra: true,
       categorias: categorias,
       precios: precios,
       errores: resultado.array(),
@@ -83,4 +80,10 @@ const guardar = async (req, res) => {
   }
 }
 
-export { admin, crear, guardar }
+const agregarImagen = async (req, res) => {
+  res.render('propiedades/agregar-imagen', {
+    pagina: 'Agregar Imagen'
+  })
+}
+
+export { admin, crear, guardar, agregarImagen }
