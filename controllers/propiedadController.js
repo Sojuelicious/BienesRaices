@@ -105,7 +105,8 @@ const agregarImagen = async (req, res) => {
   console.log(propiedad.usuarioId)
 
   res.render('propiedades/agregar-imagen', {
-    pagina: 'Agregar Imagen'
+    pagina: `Agregar Imagen: ${propiedad.titulo}`,
+    propiedad
   })
 }
 
